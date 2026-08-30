@@ -1,0 +1,75 @@
+# .project metadata for Argo
+# Documentation: https://github.com/cncf/automation/tree/main/utilities/dot-project
+
+# TODO: Set slack_channels
+# TODO: Add adopters list (ADOPTERS.md)
+# TODO: Add package_managers if distributed via registries
+
+schema_version: "1.0.0"
+slug: "argo"
+name: "Argo"
+description: "Kubernetes-native tools to run workflows, manage clusters, and do GitOps right."
+type: "project"
+project_lead: "sarabala1979" # TODO: AUTO-DETECTED — please verify
+# TODO: Set CNCF Slack channel(s)
+# slack_channels:
+#   - name: "#argo"
+#     primary: true
+
+maturity_log:
+  - phase: "graduated"
+    date: "2020-03-26T00:00:00Z"
+    issue: "https://github.com/cncf/toc/pull/964" # TODO: AUTO-DETECTED — please verify
+
+repositories: # TODO: AUTO-DETECTED primary — please verify
+  - url: "https://github.com/argoproj/argo-cd"
+    primary: true
+    # tags: [core, sig-apps] # Optional
+
+website: "https://argoproj.github.io/"
+
+artwork: "https://landscape.cncf.io/logos/argo.svg"
+
+# TODO: Add ADOPTERS.md if your project tracks adopters
+# adopters:
+#   path: "https://github.com/argoproj/argo-workflows/blob/main/ADOPTERS.md"
+
+
+# TODO: Add package manager identifiers if your project is distributed via registries
+# package_managers:
+#   docker: "argoproj/argo-workflows"
+
+social:
+  twitter: "https://twitter.com/argoproj"
+
+security:
+  policy:
+    path: "https://github.com/argoproj/argo-workflows/blob/main/SECURITY.md"
+  contact:
+    advisory_url: "https://github.com/argoproj/argo-workflows/security/advisories/new"
+
+governance:
+  contributing:
+    path: "https://github.com/argoproj/argo-workflows/blob/main/CONTRIBUTING.md"
+  code_of_conduct:
+    path: "https://github.com/argoproj/argo-workflows/blob/main/CODE_OF_CONDUCT.md"
+
+legal:
+  license:
+    path: "https://github.com/argoproj/argo-workflows/blob/main/LICENSE"
+  identity_type:
+    has_dco: true # AUTO-DETECTED — please verify
+    has_cla: false # AUTO-DETECTED — please verify
+    dco_url:
+      path: "https://developercertificate.org/"
+
+documentation:
+  readme:
+    path: "https://github.com/argoproj/argo-workflows/blob/main/README.md"
+
+landscape:
+  category: "App Definition and Development"
+  subcategory: "Continuous Integration & Delivery"
+
+# CLOMonitor Score: 93/100
+# Documentation: 99 | License: 87 | Best Practices: 100 | Security: 88
