@@ -65,6 +65,7 @@ maintainers:
           - blkperl
           - terrytangyuan
           - zachaller
+          - olivergondza
       # Unmanaged teams: teams with "managed: false" are tracked in this
       # file for documentation but are excluded from CNCF resource
       # provisioning (mailing lists, service desk, Copilot seats, etc).
