@@ -1,0 +1,49 @@
+name: Sync Maintainers
+
+# maintainers.yaml is the authoritative source for Argo maintainer membership
+# and groups. On PR we show the planned changes (dry-run). On merge to main we
+# reconcile the GitHub org teams.
+#
+# MAINTAINERS.md in argoproj/argoproj is maintained by hand (it points back to
+# this maintainers.yaml as the source of truth) and is NOT regenerated here.
+#
+# Required secrets (see docs/automation.md):
+#   ORG_TEAM_TOKEN  - GitHub App installation token / PAT with org members
+#                     read+write (team membership sync).
+
+on:
+  pull_request:
+    paths:
+      - 'maintainers.yaml'
+      - 'scripts/**'
+  push:
+    branches: [main]
+    paths:
+      - 'maintainers.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  team-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v6.0.0
+        with:
+          go-version-file: scripts/go.mod
+      - name: Reconcile org teams
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_TEAM_TOKEN }}
+        working-directory: scripts
+        run: |
+          if [ -z "$GITHUB_TOKEN" ]; then
+            echo "ORG_TEAM_TOKEN not set; skipping (configure per docs/automation.md)"
+            exit 0
+          fi
+          if [ "${{ github.event_name }}" = "push" ]; then
+            go run ./cmd/sync-org-teams --maintainers-yaml ../maintainers.yaml --apply
+          else
+            go run ./cmd/sync-org-teams --maintainers-yaml ../maintainers.yaml
+          fi
