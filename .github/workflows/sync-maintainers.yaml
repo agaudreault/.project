@@ -7,9 +7,11 @@ name: Sync Maintainers
 # MAINTAINERS.md in argoproj/argoproj is maintained by hand (it points back to
 # this maintainers.yaml as the source of truth) and is NOT regenerated here.
 #
-# Required secrets (see docs/automation.md):
-#   ORG_TEAM_TOKEN  - GitHub App installation token / PAT with org members
-#                     read+write (team membership sync).
+# Auth (see docs/automation.md): a GitHub App (org Members: read+write) whose
+# credentials are stored as repo secrets:
+#   APP_ID           - the GitHub App's numeric App ID.
+#   APP_PRIVATE_KEY  - the GitHub App's private key (.pem contents).
+# A short-lived installation token is minted per run by create-github-app-token.
 
 on:
   pull_request:
@@ -33,13 +35,21 @@ jobs:
       - uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v6.0.0
         with:
           go-version-file: scripts/go.mod
+      - name: Mint GitHub App installation token
+        id: app-token
+        if: ${{ vars.APP_ID != '' }}
+        uses: actions/create-github-app-token@a8d616148505b5069dccd32f177bb87d7f39123b # v2.0.6
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       - name: Reconcile org teams
         env:
-          GITHUB_TOKEN: ${{ secrets.ORG_TEAM_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         working-directory: scripts
         run: |
           if [ -z "$GITHUB_TOKEN" ]; then
-            echo "ORG_TEAM_TOKEN not set; skipping (configure per docs/automation.md)"
+            echo "GitHub App not configured (set APP_ID var + APP_PRIVATE_KEY secret); skipping (see docs/automation.md)"
             exit 0
           fi
           if [ "${{ github.event_name }}" = "push" ]; then

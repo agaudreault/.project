@@ -33,24 +33,52 @@ In dry-run a team that does not exist yet is shown as `[CREATE TEAM]`; with
 
 ## One-time setup
 
-### 1. Create a GitHub App (recommended) or a fine-grained PAT
+### 1. Create a GitHub App
 
 Create a GitHub App owned by the `argoproj` org with these permissions:
 
 - **Organization > Members**: Read and write (team membership + description sync).
 - **Repository > Metadata**: Read (required by GitHub).
 
-Install the App on the `argoproj` org. Generate an installation token in the
-workflow (e.g. via `actions/create-github-app-token`) or store a PAT.
+Then:
 
-### 2. Configure repository secrets (this repo)
+1. **Install** the App on the `argoproj` org.
+2. Note the App's numeric **App ID** (App settings → "App ID").
+3. Under "Private keys", **Generate a private key** and download the `.pem`.
 
-| Secret | Purpose |
-|--------|---------|
-| `ORG_TEAM_TOKEN` | Token with org members read+write for team sync. |
+The workflow does not store a long-lived token. Instead
+[`actions/create-github-app-token`](https://github.com/actions/create-github-app-token)
+exchanges the App ID + private key for a short-lived **installation access
+token** (valid ~1 hour, auto-revoked when the job ends). This is an App
+installation token, not a fine-grained PAT, so it is not subject to the CNCF
+enterprise PAT-lifetime restriction.
 
-If the secret is absent, the sync job logs a notice and is skipped, so the
-automation fails safe.
+### 2. Configure the App credentials (this repo)
+
+| Name | Kind | Purpose |
+|------|------|---------|
+| `APP_ID` | Actions **variable** | The GitHub App's numeric App ID (not secret). |
+| `APP_PRIVATE_KEY` | Actions **secret** | The full contents of the App's `.pem` private key. |
+
+Set these under the repo's Settings → Secrets and variables → Actions
+(`APP_ID` on the *Variables* tab, `APP_PRIVATE_KEY` on the *Secrets* tab). The
+workflow mints the token like so:
+
+```yaml
+- uses: actions/create-github-app-token@v2
+  id: app-token
+  with:
+    app-id: ${{ vars.APP_ID }}
+    private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    owner: ${{ github.repository_owner }}
+- name: Reconcile org teams
+  env:
+    GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+  ...
+```
+
+If `APP_ID` is unset, the token step is skipped and the sync job logs a notice
+and exits cleanly, so the automation fails safe.
 
 ### 3. Grant teams repo access
 

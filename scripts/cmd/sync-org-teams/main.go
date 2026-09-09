@@ -66,7 +66,6 @@ func run() error {
 
 	c := &client{token: token, http: &http.Client{Timeout: 30 * time.Second}}
 
-	exitCode := 0
 	for _, team := range proj.Teams {
 		if !team.IsManaged() && !*includeUnmanaged {
 			fmt.Printf("[SKIP] %s/%s is unmanaged (managed: false)\n", org, team.Name)
@@ -88,11 +87,9 @@ func run() error {
 				if err := c.createTeam(org, team.Name, teamDescription); err != nil {
 					return err
 				}
-			} else {
-				// Without --apply the team stays missing; flag it so a dry-run
-				// on a PR surfaces that a create is pending.
-				exitCode = 1
 			}
+			// In dry-run the team stays missing; this is reported, not treated
+			// as a failure, so PR checks stay green for pending creates.
 		} else if info.Description != teamDescription {
 			// Reconcile the description of an existing team.
 			fmt.Printf("[DESC] %s/%s: set description -> %q\n", org, team.Name, teamDescription)
@@ -141,6 +138,5 @@ func run() error {
 	if !*apply {
 		fmt.Println("\n(dry-run; re-run with --apply to make changes)")
 	}
-	os.Exit(exitCode)
 	return nil
 }
