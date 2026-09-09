@@ -70,8 +70,6 @@ social:
 security:
   policy:
     path: 'https://github.com/argoproj/argoproj/blob/main/SECURITY.md'
-  contact:
-    advisory_url: 'https://github.com/argoproj/argoproj/blob/main/SECURITY.md#reporting-vulnerabilities'
 
 governance:
   contributing:
