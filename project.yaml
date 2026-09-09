@@ -1,75 +1,100 @@
 # .project metadata for Argo
 # Documentation: https://github.com/cncf/automation/tree/main/utilities/dot-project
 
-# TODO: Set slack_channels
-# TODO: Add adopters list (ADOPTERS.md)
-# TODO: Add package_managers if distributed via registries
-
-schema_version: "1.0.0"
-slug: "argo"
-name: "Argo"
-description: "Kubernetes-native tools to run workflows, manage clusters, and do GitOps right."
-type: "project"
-project_lead: "sarabala1979" # TODO: AUTO-DETECTED — please verify
-# TODO: Set CNCF Slack channel(s)
-# slack_channels:
-#   - name: "#argo"
-#     primary: true
+schema_version: '1.0.0'
+slug: 'argo'
+name: 'Argo'
+description: 'Kubernetes-native tools to run workflows, manage clusters, and do GitOps right.'
+type: 'project'
+slack_channels:
+  - name: '#argo-announcements'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-announcements'
+    primary: true
+  - name: '#argo-cd'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-cd'
+  - name: '#argo-events'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-events'
+  - name: '#argo-rollouts'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-rollouts'
+  - name: '#argo-workflows'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-workflows'
+  - name: '#argo-cd-contributors'
+    workspace: 'cncf'
+    link: 'https://cloud-native.slack.com/messages/argo-cd-contributors'
 
 maturity_log:
-  - phase: "graduated"
-    date: "2020-03-26T00:00:00Z"
-    issue: "https://github.com/cncf/toc/pull/964" # TODO: AUTO-DETECTED — please verify
+  - phase: 'incubating'
+    date: '2020-03-26T00:00:00Z'
+    issue: 'https://github.com/cncf/toc/pull/299'
+  - phase: 'graduated'
+    date: '2022-12-06T00:00:00Z'
+    issue: 'https://github.com/cncf/toc/pull/604'
 
-repositories: # TODO: AUTO-DETECTED primary — please verify
-  - url: "https://github.com/argoproj/argo-cd"
+repositories:
+  - url: 'https://github.com/argoproj/argoproj'
     primary: true
-    # tags: [core, sig-apps] # Optional
+  - url: 'https://github.com/argoproj/argo-cd'
+    tags: [core]
+  - url: 'https://github.com/argoproj/argo-workflows'
+    tags: [core]
+  - url: 'https://github.com/argoproj/argo-events'
+    tags: [core]
+  - url: 'https://github.com/argoproj/argo-rollouts'
+    tags: [core]
+  - url: 'https://github.com/argoproj/argo-helm'
+    tags: [packaging]
 
-website: "https://argoproj.github.io/"
+website: 'https://argoproj.github.io/'
 
-artwork: "https://landscape.cncf.io/logos/argo.svg"
+artwork: 'https://landscape.cncf.io/logos/argo.svg'
 
-# TODO: Add ADOPTERS.md if your project tracks adopters
-# adopters:
-#   path: "https://github.com/argoproj/argo-workflows/blob/main/ADOPTERS.md"
+# Using Argo CD project since it has the most adoption
+adopters:
+  path: 'https://github.com/argoproj/argo-cd/blob/master/USERS.md'
 
-
-# TODO: Add package manager identifiers if your project is distributed via registries
-# package_managers:
-#   docker: "argoproj/argo-workflows"
+package_managers:
+  docker: quay.io/argoproj
+  helm: 'https://argoproj.github.io/argo-helm'
 
 social:
-  twitter: "https://twitter.com/argoproj"
+  twitter: 'https://twitter.com/argoproj'
+  linkedin: 'https://www.linkedin.com/company/argoproj'
+  youtube: 'https://www.youtube.com/@argoproj7170'
+  bluesky: 'https://bsky.app/profile/argoproj.io'
 
 security:
   policy:
-    path: "https://github.com/argoproj/argo-workflows/blob/main/SECURITY.md"
+    path: 'https://github.com/argoproj/argoproj/blob/main/SECURITY.md'
   contact:
-    advisory_url: "https://github.com/argoproj/argo-workflows/security/advisories/new"
+    advisory_url: 'https://github.com/argoproj/argoproj/blob/main/SECURITY.md#reporting-vulnerabilities'
 
 governance:
   contributing:
-    path: "https://github.com/argoproj/argo-workflows/blob/main/CONTRIBUTING.md"
+    path: 'https://github.com/argoproj/argoproj/blob/main/community/CONTRIBUTING.md'
   code_of_conduct:
-    path: "https://github.com/argoproj/argo-workflows/blob/main/CODE_OF_CONDUCT.md"
+    path: 'https://github.com/cncf/foundation/blob/main/code-of-conduct.md'
 
 legal:
   license:
-    path: "https://github.com/argoproj/argo-workflows/blob/main/LICENSE"
+    path: 'https://github.com/argoproj/argo-cd/blob/master/LICENSE'
   identity_type:
-    has_dco: true # AUTO-DETECTED — please verify
-    has_cla: false # AUTO-DETECTED — please verify
+    has_dco: true # Argo requires DCO sign-off on all commits
+    has_cla: false # No CLA; contributions are gated by DCO only
     dco_url:
-      path: "https://developercertificate.org/"
+      path: 'https://developercertificate.org/'
 
 documentation:
   readme:
-    path: "https://github.com/argoproj/argo-workflows/blob/main/README.md"
+    path: 'https://github.com/argoproj/argoproj/blob/main/README.md'
 
 landscape:
-  category: "App Definition and Development"
-  subcategory: "Continuous Integration & Delivery"
+  category: 'App Definition and Development'
+  subcategory: 'Continuous Integration & Delivery'
 
 # CLOMonitor Score: 93/100
 # Documentation: 99 | License: 87 | Best Practices: 100 | Security: 88
