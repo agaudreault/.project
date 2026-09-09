@@ -2,7 +2,7 @@
 # Documentation: https://github.com/cncf/automation/tree/main/utilities/dot-project
 #
 # AUTHORITATIVE SOURCE OF TRUTH for Argo maintainer membership and groups.
-# In Argo, maintainers are the union of the maintainers of the four subprojects
+# In Argo, maintainers are the union of the maintainers of the five subprojects
 # (argo-cd, argo-events, argo-rollouts, argo-workflows, argo-helm).
 #
 # Roles are cumulative: a lead is also an approver and a reviewer; an approver
@@ -23,7 +23,7 @@
 # Editing this file affects GitHub org team membership, so changes are
 # code-owned by the subproject leads (see CODEOWNERS).
 #
-#  Maintainers: Please connect your GitHub handle to your LFID on openprofile.dev to enable automatic access to CNCF resources. The system will use your primary email address for setup.
+# Maintainers: Please connect your GitHub handle to your LFID on openprofile.dev to enable automatic access to CNCF resources. The system will use your primary email address for setup.
 maintainers:
   - project_id: 'argo'
     org: 'argoproj'
@@ -184,7 +184,6 @@ maintainers:
           - jmeridth
 
       # ---------------- Former maintainers ----------------
-      # Tracked, not provisioned. Populated from the MAINTAINERS.md Alumni table.
       - name: 'emeritus'
         managed: false
         members:
