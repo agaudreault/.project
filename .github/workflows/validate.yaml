@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: cncf/automation/.github/actions/validate-project@53810a548b46f33421cd67e57d16e4b7251416d9
+      - uses: cncf/automation/.github/actions/validate-project@cf93440797b1d2178d833d1b1c01e587a486908a
         with:
           project_file: 'project.yaml'
 
@@ -31,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: cncf/automation/.github/actions/validate-maintainers@53810a548b46f33421cd67e57d16e4b7251416d9
+      - uses: cncf/automation/.github/actions/validate-maintainers@cf93440797b1d2178d833d1b1c01e587a486908a
         with:
           maintainers_file: 'maintainers.yaml'
           # Disabled until the LFX LLT issue is resolved. Validation is done manually for now.
