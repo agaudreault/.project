@@ -1,0 +1,9 @@
+# CODEOWNERS for .project metadata repository
+# Changes to project metadata require maintainer review.
+#
+# Default: any subproject approver may review project metadata.
+* @argoproj/argocd-approvers @argoproj/argo-workflows-approvers @argoproj/argo-events-approvers @argoproj/argo-rollouts-approvers
+
+# The maintainer roster drives GitHub org team membership, so changes must be
+# approved by the subproject leads (a review from any one lead satisfies this).
+/maintainers.yaml @argoproj/argocd-leads @argoproj/argo-workflows-leads @argoproj/argo-events-leads @argoproj/argo-rollouts-leads
